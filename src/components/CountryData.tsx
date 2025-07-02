@@ -13,11 +13,15 @@ const COUNTRY_DATA_QUERY = gql`
   }
 `;
 
-export default function CountryData() {
+export default function CountryData({ country, measure = "life_expectancy" }: { country?: string | null; measure?: string }) {
+  if (!country) {
+    return <div>No country selected</div>;
+  }
+
   const { loading, error, data } = useQuery(COUNTRY_DATA_QUERY, {
     variables: {
-      country: "poland",
-      measure: "life_expectancy"
+      country,
+      measure
     }
   });
 
@@ -28,7 +32,7 @@ export default function CountryData() {
 
   return (
     <div>
-      <h3>Poland - Life Expectancy ({dataPoints.length} data points)</h3>
+      <h3>{country.toUpperCase()} - {measure.toUpperCase()} ({dataPoints.length} data points)</h3>
       <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
         {dataPoints.slice(0, 10).map((point: any, index: number) => (
           <div key={index} style={{ margin: '5px 0' }}>
