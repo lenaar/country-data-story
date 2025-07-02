@@ -20,11 +20,14 @@ export default function CountriesList() {
   if (loading) return <div>Loading countries...</div>;
   if (error) return <div>Error loading countries: {error.message}</div>;
 
+  // Sort countries by name
+  const sortedCountries = data?.item ? [...data.item].sort((a: any, b: any) => a.name.localeCompare(b.name)) : [];
+
   return (
     <div>
       <h2>Countries ({data?.item?.length || 0})</h2>
       <ul>
-        {data?.item?.map((country: any) => (
+        {sortedCountries?.map((country: any) => (
           <li key={country.id}>
             {country.name} ({country.iso2?.[0]?.value || 'N/A'})
           </li>
