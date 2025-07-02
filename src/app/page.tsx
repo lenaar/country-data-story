@@ -19,7 +19,7 @@ export default function Home() {
       <h1>Country Data Dashboard</h1>
       
       <div style={{ marginBottom: '30px' }}>
-        <CountriesList />
+        <CountriesList selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry}/>
       </div>
       
       <div>

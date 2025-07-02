@@ -14,7 +14,7 @@ const COUNTRIES_QUERY = gql`
   }
 `;
 
-export default function CountriesList() {
+export default function CountriesList({ selectedCountry, setSelectedCountry }: { selectedCountry: string | null, setSelectedCountry: (country: string) => void }) {
   const { loading, error, data } = useQuery(COUNTRIES_QUERY);
 
   if (loading) return <div>Loading countries...</div>;
@@ -30,6 +30,7 @@ export default function CountriesList() {
         {sortedCountries?.map((country: any) => (
           <li key={country.id}>
             {country.name} ({country.iso2?.[0]?.value || 'N/A'})
+            {selectedCountry === country.id && <span> (Selected)</span>}
           </li>
         ))}
       </ul>
